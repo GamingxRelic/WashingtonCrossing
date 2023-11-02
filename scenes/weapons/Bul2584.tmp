@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://btj5ss5aiw7b7"]
+
+[ext_resource type="Script" path="res://scripts/weapons/Bullet.gd" id="1_p85jf"]
+[ext_resource type="Texture2D" uid="uid://cjw4e5vte0so5" path="res://assets/sprites/weapons/musketball.png" id="2_or2qd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjgwx"]
+size = Vector2(2, 2)
+
+[node name="Bullet" type="CharacterBody2D"]
+script = ExtResource("1_p85jf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gjgwx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_or2qd")
