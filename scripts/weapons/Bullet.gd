@@ -9,3 +9,10 @@ func _physics_process(delta) -> void:
 
 func _on_timer_timeout():
 	queue_free()
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group("enemy"):
+		body.damage()
+		queue_free()
+	else:
+		queue_free()

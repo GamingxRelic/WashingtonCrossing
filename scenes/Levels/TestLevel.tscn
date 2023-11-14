@@ -1,11 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://drpuvhuacvk05"]
+[gd_scene load_steps=8 format=3 uid="uid://drpuvhuacvk05"]
 
 [ext_resource type="Script" path="res://scripts/levels/TestLevel.gd" id="1_6rq6v"]
 [ext_resource type="PackedScene" uid="uid://drraokf2pxhfo" path="res://scenes/player/Player.tscn" id="1_m1sox"]
 [ext_resource type="Texture2D" uid="uid://8l10h1j6rmt" path="res://icon.svg" id="2_h2tei"]
+[ext_resource type="PackedScene" uid="uid://dm140gx4q1mau" path="res://scenes/enemy/Test_Dummy.tscn" id="4_ldho4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0jm35"]
-size = Vector2(448, 20)
+size = Vector2(1055, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2vk6"]
+size = Vector2(69, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmwf3"]
+size = Vector2(87.1607, 7)
 
 [node name="TestLevel" type="Node2D"]
 script = ExtResource("1_6rq6v")
@@ -21,10 +28,47 @@ zoom = Vector2(2, 2)
 position = Vector2(70, 318)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(41.5, -2.563e-06)
-scale = Vector2(3.50781, 0.171875)
+position = Vector2(344.5, -2.563e-06)
+scale = Vector2(8.24219, 0.171875)
 texture = ExtResource("2_h2tei")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(41, 0)
+position = Vector2(344.5, 0)
 shape = SubResource("RectangleShape2D_0jm35")
+
+[node name="Stair" type="StaticBody2D" parent="."]
+position = Vector2(146, 311)
+
+[node name="Sprite2D" type="Sprite2D" parent="Stair"]
+position = Vector2(-148.5, -8.5)
+scale = Vector2(0.539061, 0.0703125)
+texture = ExtResource("2_h2tei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stair"]
+position = Vector2(-148.5, -8.5)
+shape = SubResource("RectangleShape2D_s2vk6")
+
+[node name="Ramp" type="StaticBody2D" parent="."]
+position = Vector2(415, 300)
+rotation = -0.553496
+
+[node name="Sprite2D" type="Sprite2D" parent="Ramp"]
+scale = Vector2(0.69088, 0.0546875)
+texture = ExtResource("2_h2tei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ramp"]
+shape = SubResource("RectangleShape2D_bmwf3")
+
+[node name="Ramp2" type="StaticBody2D" parent="."]
+position = Vector2(485, 301)
+rotation = 0.583109
+
+[node name="Sprite2D" type="Sprite2D" parent="Ramp2"]
+scale = Vector2(0.69088, 0.0546875)
+texture = ExtResource("2_h2tei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ramp2"]
+shape = SubResource("RectangleShape2D_bmwf3")
+
+[node name="Test_Dummy" parent="." instance=ExtResource("4_ldho4")]
+position = Vector2(571, 285)

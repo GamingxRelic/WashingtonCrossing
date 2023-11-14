@@ -21,17 +21,17 @@ var cut_height : float = 0.75
 var max_fall_velocity : float = 350
 
 # Jumping variables
-var can_jump := false
-var jump_was_pressed := false
-var is_jumping := false
+#var can_jump := false
+#var jump_was_pressed := false
+#var is_jumping := false
 
 # Corner Correction variables
-@onready var cc_outer_left := $Corner_Correction_Raycasts/Outer_Left
-@onready var cc_inner_left := $Corner_Correction_Raycasts/Inner_Left
-@onready var cc_outer_right := $Corner_Correction_Raycasts/Outer_Right
-@onready var cc_inner_right := $Corner_Correction_Raycasts/Inner_Right
-var cc_push_amount := 3.0
-
+#@onready var cc_outer_left := $Corner_Correction_Raycasts/Outer_Left
+#@onready var cc_inner_left := $Corner_Correction_Raycasts/Inner_Left
+#@onready var cc_outer_right := $Corner_Correction_Raycasts/Outer_Right
+#@onready var cc_inner_right := $Corner_Correction_Raycasts/Inner_Right
+#var cc_push_amount := 3.0
+#
 # Stair Check variables
 @onready var sc_head_left := $Stair_Check_Raycasts/Head_Left
 @onready var sc_ground_left := $Stair_Check_Raycasts/Ground_Left
@@ -48,13 +48,14 @@ var facing := 1 # 0 is left, 1 is right
 @onready var sprite := $Sprite2D
 @export var attacking := false
 @export var reloading := false
-var shooting := false
-var stabbing := false
+@export var shooting := false
+@export var stabbing := false
 
 @onready var gun_tip := $Gun_Tip
 
 func _ready():
 	anim_tree.active = true
+	$Gun_Tip/Attack_Box/CollisionShape2D.disabled = true
 
 func _physics_process(delta):
 	# Handle general input
@@ -69,10 +70,10 @@ func _physics_process(delta):
 	# Adjust animation tree based on horizontal movement
 	anim_tree_transition_requests()
 
-	# Corner Correction
-	corner_correction()
-
-	# Stair Check
+#	# Corner Correction
+#	corner_correction()
+#
+#	# Stair Check
 	stair_check()
 
 	move_and_slide()
@@ -86,7 +87,7 @@ func anim_tree_transition_requests():
 			anim_tree.set("parameters/ground/transition_request", "running")
 			anim_tree.set("parameters/jumping/transition_request", "jump_left")
 			anim_tree.set("parameters/falling/transition_request", "fall_left")
-		else:
+		elif velocity.x > 0:
 			facing = 1
 			gun_tip.position.x = 21.0
 			anim_tree.set("parameters/running/transition_request", "run_right")
@@ -113,24 +114,21 @@ func anim_tree_transition_requests():
 			anim_pos = anim_player.current_animation_position
 			anim_player.current_animation = "walking_reload"
 			anim_player.seek(anim_pos)
-#			anim_tree.set("parameters/reload/transition_request", "walking")
 		else:
 			anim_pos = anim_player.current_animation_position
 			anim_player.current_animation = "reload"
 			anim_player.seek(anim_pos)
-#			anim_tree.set("parameters/reload/transition_request", "standing")
 	elif !attacking and !reloading:
 		anim_tree.set("parameters/ground/transition_request", "idle")
 
 func get_input():
-	if Input.is_action_just_pressed("left_click") and !is_jumping and !reloading:
-		attacking = true
+	if Input.is_action_just_pressed("left_click") and !reloading and !shooting: #and !is_jumping:
 		shoot()
-	if Input.is_action_just_pressed("right_click") and !is_jumping and !reloading:
-		attacking = true
+	if Input.is_action_just_pressed("right_click") and !reloading and !shooting and !stabbing: #and !is_jumping:
 		stab()
 
 func shoot():
+	attacking = true
 	var bullet = preload("res://scenes/weapons/Bullet.tscn").instantiate()
 
 	if facing == 0:
@@ -146,33 +144,31 @@ func shoot():
 	GameManager.level.call_deferred("add_child", bullet)
 
 func stab():
+	attacking = true
+	anim_tree.set("parameters/ground/transition_request", "attacking")
 	if facing == 0:
+		pass
 		anim_tree.set("parameters/attack/transition_request", "stab_left")
-		anim_tree.set("parameters/ground/transition_request", "attacking")
 	else:
 		anim_tree.set("parameters/attack/transition_request", "stab_right")
-		anim_tree.set("parameters/ground/transition_request", "attacking")
-		
+		pass
+
 func reload():
 	reloading = true
 	anim_player.play("reload")
-	#anim_tree.set("parameters/ground/transition_request", "reloading")
+
+func request_idle():
+	stabbing = false
+	shooting = false
+	reloading = false
+	attacking = false
+	anim_tree.set("parameters/ground/transition_request", "idle")
 
 func horizontal_movement():
 	# Get the input direction and handle the movement/deceleration.
-	
 	var direction = Input.get_axis("move_left", "move_right")
 	
-#	if Input.is_action_pressed("sprint") and is_on_floor():
-#		sprinting = true
-#	if !Input.is_action_pressed("sprint") and is_on_floor():
-#		sprinting = false
-	
-	if direction and !attacking:
-#		if sprinting:
-#			velocity.x = direction * sprint_speed
-#			anim_tree.set("parameters/running_timescale/scale", 1.5)
-#		else:
+	if direction and !shooting:
 		if reloading:
 			velocity.x = lerpf(velocity.x, direction * reloading_movement_speed, acceleration)
 		else:
@@ -183,14 +179,14 @@ func horizontal_movement():
 func handle_jump(delta):
 	if is_on_floor():
 		anim_tree.set("parameters/in_air_state/transition_request", "ground")
-		is_jumping = false
-		can_jump = true
-		if jump_was_pressed:
-			jump()
+#		is_jumping = false
+#		can_jump = true
+#		if jump_was_pressed:
+#			jump()
 	
 	# Add the gravity.
 	if not is_on_floor():
-		coyote_time()
+#		coyote_time()
 		anim_tree.set("parameters/in_air_state/transition_request", "air")
 		velocity.y += get_gravity() * delta
 		velocity.y = clampf(velocity.y, -max_fall_velocity, max_fall_velocity)
@@ -209,29 +205,27 @@ func handle_jump(delta):
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
-func jump():
-	is_jumping = true
-	velocity.y = jump_velocity
-	anim_tree.set("parameters/in_air/transition_request", "jumping")
+#func jump():
+#	is_jumping = true
+#	velocity.y = jump_velocity
+#	anim_tree.set("parameters/in_air/transition_request", "jumping")
 	
-func coyote_time():
-	await get_tree().create_timer(0.1).timeout
-	can_jump = false
+#func coyote_time():
+#	await get_tree().create_timer(0.1).timeout
+#	can_jump = false
 
-func remember_jump_time():
-	await get_tree().create_timer(0.1).timeout
-	jump_was_pressed = false
+#func remember_jump_time():
+#	await get_tree().create_timer(0.1).timeout
+#	jump_was_pressed = false
 
-func corner_correction():
-	if velocity.y < 0:
-		if cc_outer_left.get_collider() != null and cc_inner_left.get_collider() == null:
-			position.x += cc_push_amount
-			#print("lef")
-
-		if cc_outer_right.get_collider() != null and cc_inner_right.get_collider() == null:
-			position.x -= cc_push_amount
-			#print("rig")
-	
+#func corner_correction():
+#	if velocity.y < 0:
+#		if cc_outer_left.get_collider() != null and cc_inner_left.get_collider() == null:
+#			position.x += cc_push_amount
+#
+#		if cc_outer_right.get_collider() != null and cc_inner_right.get_collider() == null:
+#			position.x -= cc_push_amount
+#
 func stair_check():
 	if velocity.x != 0:
 		if velocity.x < 0 and velocity.y == 0 and sc_ground_left.get_collider() != null and sc_head_left.get_collider() == null:
@@ -241,18 +235,22 @@ func stair_check():
 		if velocity.x > 0 and velocity.y == 0 and sc_ground_right.get_collider() != null and sc_head_right.get_collider() == null:
 			position.x += sc_push_amount
 			position.y -= sc_push_amount
-			#print("righ")
-
-func _on_item_pickup_range_body_entered(body):
-	if body.is_in_group("item"):
-		body.in_pickup_range(true)
-
-func _on_item_pickup_range_body_exited(body):
-	if body.is_in_group("item"):
-		body.in_pickup_range(false)
+#			#print("righ")
+#
+#func _on_item_pickup_range_body_entered(body):
+#	if body.is_in_group("item"):
+#		body.in_pickup_range(true)
+#
+#func _on_item_pickup_range_body_exited(body):
+#	if body.is_in_group("item"):
+#		body.in_pickup_range(false)
 
 func _on_hitbox_body_entered(_body):
 	pass
 
 func _on_hitbox_body_exited(_body):
 	pass
+
+func _on_attack_box_body_entered(body):
+	if body.is_in_group("enemy"):
+		body.damage()
