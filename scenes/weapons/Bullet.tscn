@@ -7,6 +7,7 @@
 size = Vector2(2, 2)
 
 [node name="Bullet" type="CharacterBody2D"]
+z_index = -1
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_p85jf")

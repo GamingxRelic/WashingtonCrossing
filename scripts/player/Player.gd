@@ -1,5 +1,13 @@
 extends CharacterBody2D
 
+# If player should be enabled
+@export var enable_player : bool:
+	set(value):
+		enable_player = value
+		anim_tree.active = true
+	get:
+		return enable_player
+
 # Movement Speed
 var speed := 125.0
 var reloading_movement_speed := 40.0
@@ -53,43 +61,47 @@ var facing := 1 # 0 is left, 1 is right
 
 @onready var gun_tip := $Gun_Tip
 
+# Sound variables
+@onready var primary_audio := $Audio/PrimaryAudio
+
 func _ready():
-	anim_tree.active = true
 	$Gun_Tip/Attack_Box/CollisionShape2D.disabled = true
 
 func _physics_process(delta):
-	# Handle general input
-	get_input()
-
-	# Handle Jump
-	handle_jump(delta)
-		
-	# Horizontal Movement
-	horizontal_movement()
 	
-	# Adjust animation tree based on horizontal movement
-	anim_tree_transition_requests()
+	if enable_player:
+		# Handle general input
+		get_input()
 
-#	# Corner Correction
-#	corner_correction()
-#
-#	# Stair Check
-	stair_check()
+		# Handle Jump
+		handle_jump(delta)
+			
+		# Horizontal Movement
+		horizontal_movement()
+		
+		# Adjust animation tree based on horizontal movement
+		anim_tree_transition_requests()
 
-	move_and_slide()
+	#	# Corner Correction
+	#	corner_correction()
+	#
+	#	# Stair Check
+		stair_check()
+
+		move_and_slide()
 
 func anim_tree_transition_requests():
 	if velocity.x != 0 and !attacking and !reloading:
 		if velocity.x < 0:
 			facing = 0
-			gun_tip.position.x = -21.0
+			gun_tip.position.x = -31.0
 			anim_tree.set("parameters/running/transition_request", "run_left")
 			anim_tree.set("parameters/ground/transition_request", "running")
 			anim_tree.set("parameters/jumping/transition_request", "jump_left")
 			anim_tree.set("parameters/falling/transition_request", "fall_left")
 		elif velocity.x > 0:
 			facing = 1
-			gun_tip.position.x = 21.0
+			gun_tip.position.x = 31.0
 			anim_tree.set("parameters/running/transition_request", "run_right")
 			anim_tree.set("parameters/ground/transition_request", "running")
 			anim_tree.set("parameters/jumping/transition_request", "jump_right")
@@ -121,6 +133,7 @@ func anim_tree_transition_requests():
 	elif !attacking and !reloading:
 		anim_tree.set("parameters/ground/transition_request", "idle")
 
+
 func get_input():
 	if Input.is_action_just_pressed("left_click") and !reloading and !shooting: #and !is_jumping:
 		shoot()
@@ -128,6 +141,8 @@ func get_input():
 		stab()
 
 func shoot():
+	primary_audio.stream = AudioManager.sounds["shoot"]
+	primary_audio.play()
 	attacking = true
 	var bullet = preload("res://scenes/weapons/Bullet.tscn").instantiate()
 
@@ -154,6 +169,8 @@ func stab():
 		pass
 
 func reload():
+	primary_audio.stream = AudioManager.sounds["reload"]
+	primary_audio.play()
 	reloading = true
 	anim_player.play("reload")
 

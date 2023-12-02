@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdkqxvgwmhe7f"]
+
+[ext_resource type="Script" path="res://scripts/npc/SpeakingNPC.gd" id="1_i48hr"]
+[ext_resource type="Texture2D" uid="uid://dnop8noyb6wey" path="res://assets/sprites/player/Idle.png" id="2_777nl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wn4jl"]
+size = Vector2(144, 47)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdix5"]
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[node name="SpeakingNPC" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_i48hr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2_777nl")
+hframes = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_wn4jl")
+
+[node name="Dialog" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = -0.057
+anchor_right = 0.076
+anchor_bottom = 0.044
+offset_left = 9.0
+offset_top = -15.0
+offset_right = 65.0
+offset_bottom = -4.0
+text = "Chikcen"
+label_settings = SubResource("LabelSettings_hdix5")
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
