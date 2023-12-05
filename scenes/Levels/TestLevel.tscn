@@ -142,7 +142,7 @@ shader_parameter/noise_texture2 = SubResource("NoiseTexture2D_carat")
 script = ExtResource("1_6rq6v")
 
 [node name="CutscenePlayer" type="AnimationPlayer" parent="."]
-method_call_mode = 1
+callback_mode_method = 1
 libraries = {
 "": SubResource("AnimationLibrary_cahyt")
 }

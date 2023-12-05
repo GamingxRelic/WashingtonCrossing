@@ -66,6 +66,7 @@ var facing := 1 # 0 is left, 1 is right
 
 func _ready():
 	$Gun_Tip/Attack_Box/CollisionShape2D.disabled = true
+	anim_tree.set("parameters/ground/transition_request", "idle")
 
 func _physics_process(delta):
 	
@@ -108,6 +109,7 @@ func anim_tree_transition_requests():
 			anim_tree.set("parameters/falling/transition_request", "fall_right")
 	elif !attacking and reloading:
 		var anim_pos = 0.0
+		anim_tree.set("parameters/ground/transition_request", "reloading")
 		if velocity.x != 0:
 			if velocity.x < 0:
 				facing = 0
@@ -123,13 +125,13 @@ func anim_tree_transition_requests():
 				anim_tree.set("parameters/running/transition_request", "run_right")
 				anim_tree.set("parameters/jumping/transition_request", "jump_right")
 				anim_tree.set("parameters/falling/transition_request", "fall_right")
+			anim_tree.set("parameters/Blend2/blend_amount", 1)
 			anim_pos = anim_player.current_animation_position
-			anim_player.current_animation = "walking_reload"
-			anim_player.seek(anim_pos)
+			anim_tree.set("parameters/TimeSeek/seek_request", anim_pos)
 		else:
+			anim_tree.set("parameters/Blend2/blend_amount", 0)
 			anim_pos = anim_player.current_animation_position
-			anim_player.current_animation = "reload"
-			anim_player.seek(anim_pos)
+			anim_tree.set("parameters/TimeSeek/seek_request", anim_pos)
 	elif !attacking and !reloading:
 		anim_tree.set("parameters/ground/transition_request", "idle")
 

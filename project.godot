@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="WashingtonCrossing"
-run/main_scene="res://scenes/main/Main.tscn"
-config/features=PackedStringArray("4.1", "GL Compatibility")
+run/main_scene="res://scenes/menus/main_menu.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
