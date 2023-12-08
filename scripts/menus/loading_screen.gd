@@ -12,6 +12,6 @@ func _process(_delta):
 	progress_label.text = "Loading " + str(floor(progress[0]*100)) + "%"
 	
 	if scene_load_status == ResourceLoader.THREAD_LOAD_LOADED:
-		print("finished!")
 		var new_scene = ResourceLoader.load_threaded_get(GameManager.requested_scene)
-		get_tree().change_scene_to_packed(new_scene)
+		#GameManager.scene_switcher.add_child(new_scene)
+		get_tree().change_scene_to_packed(new_scene) 

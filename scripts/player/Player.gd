@@ -1,10 +1,21 @@
 extends CharacterBody2D
 
+# TODO:
+#
+#If both R and L Mouse are clicked at the same time they overlap and allow you to shoot and not reload
+#Maybe add in the slide to stop on the stab, dont let players turn around while stabbing
+#Can't go back to previous level
+#
+#
+#
+#
+
+
 # If player should be enabled
 @export var enable_player : bool:
 	set(value):
 		enable_player = value
-		anim_tree.active = true
+		$AnimationTree.active = true
 	get:
 		return enable_player
 
@@ -58,6 +69,7 @@ var facing := 1 # 0 is left, 1 is right
 @export var reloading := false
 @export var shooting := false
 @export var stabbing := false
+@export var crouching := false
 
 @onready var gun_tip := $Gun_Tip
 
@@ -92,7 +104,7 @@ func _physics_process(delta):
 		move_and_slide()
 
 func anim_tree_transition_requests():
-	if velocity.x != 0 and !attacking and !reloading:
+	if velocity.x != 0 and !attacking and !reloading and !crouching:
 		if velocity.x < 0:
 			facing = 0
 			gun_tip.position.x = -31.0
@@ -107,7 +119,7 @@ func anim_tree_transition_requests():
 			anim_tree.set("parameters/ground/transition_request", "running")
 			anim_tree.set("parameters/jumping/transition_request", "jump_right")
 			anim_tree.set("parameters/falling/transition_request", "fall_right")
-	elif !attacking and reloading:
+	elif !attacking and reloading and !crouching:
 		var anim_pos = 0.0
 		anim_tree.set("parameters/ground/transition_request", "reloading")
 		if velocity.x != 0:
@@ -132,15 +144,28 @@ func anim_tree_transition_requests():
 			anim_tree.set("parameters/Blend2/blend_amount", 0)
 			anim_pos = anim_player.current_animation_position
 			anim_tree.set("parameters/TimeSeek/seek_request", anim_pos)
-	elif !attacking and !reloading:
+	elif !attacking and !reloading and !crouching:
 		anim_tree.set("parameters/ground/transition_request", "idle")
 
 
 func get_input():
-	if Input.is_action_just_pressed("left_click") and !reloading and !shooting: #and !is_jumping:
+	if Input.is_action_just_pressed("left_click") and !reloading and !shooting and !stabbing and !crouching: #and !is_jumping:
 		shoot()
-	if Input.is_action_just_pressed("right_click") and !reloading and !shooting and !stabbing: #and !is_jumping:
+	if Input.is_action_just_pressed("right_click") and !reloading and !shooting and !stabbing and !crouching: #and !is_jumping:
 		stab()
+	if Input.is_action_just_pressed("crouch")and !attacking and !reloading and !stabbing and !crouching:
+		crouch()
+	if Input.is_action_just_released("crouch"):
+		anim_tree.set("parameters/crouching/transition_request", "standup")
+
+func crouch():
+	# If already crouching, return.
+	if crouching:
+		return
+	
+	crouching = true
+	anim_tree.set("parameters/crouching/transition_request", "crouch_idle")
+	anim_tree.set("parameters/ground/transition_request", "crouch")
 
 func shoot():
 	primary_audio.stream = AudioManager.sounds["shoot"]
@@ -164,11 +189,9 @@ func stab():
 	attacking = true
 	anim_tree.set("parameters/ground/transition_request", "attacking")
 	if facing == 0:
-		pass
 		anim_tree.set("parameters/attack/transition_request", "stab_left")
 	else:
 		anim_tree.set("parameters/attack/transition_request", "stab_right")
-		pass
 
 func reload():
 	primary_audio.stream = AudioManager.sounds["reload"]
@@ -187,7 +210,7 @@ func horizontal_movement():
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_axis("move_left", "move_right")
 	
-	if direction and !shooting:
+	if direction and !shooting and !crouching:
 		if reloading:
 			velocity.x = lerpf(velocity.x, direction * reloading_movement_speed, acceleration)
 		else:
@@ -273,3 +296,10 @@ func _on_hitbox_body_exited(_body):
 func _on_attack_box_body_entered(body):
 	if body.is_in_group("enemy"):
 		body.damage()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	pass
+	#match anim_name:
+	#	"stand_up":
+	#		pass

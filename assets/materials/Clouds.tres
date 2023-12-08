@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://k8yn4u71g1eq"]
+
+[ext_resource type="Shader" path="res://shaders/ScrollingShader.gdshader" id="1_lkhme"]
+
+[resource]
+shader = ExtResource("1_lkhme")
+shader_parameter/motion = Vector2(10, 0)
+shader_parameter/scale = 1.0
+shader_parameter/offset = Vector2(300, 180)
