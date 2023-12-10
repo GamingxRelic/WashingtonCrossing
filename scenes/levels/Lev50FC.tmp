@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://pqbye58j68e"]
+
+[ext_resource type="Script" path="res://scenes/levels/Level03.gd" id="1_akins"]
+[ext_resource type="Texture2D" uid="uid://c24bl76ames1b" path="res://assets/environment/ground/level3/scene.png" id="1_c01ax"]
+[ext_resource type="AudioStream" uid="uid://0afdnxix8ecs" path="res://assets/audio/music/Song_1Remix.mp3" id="2_3jpcd"]
+[ext_resource type="Texture2D" uid="uid://bh1h2gh35y07i" path="res://assets/environment/ground/level1/sky.png" id="2_xkmby"]
+[ext_resource type="Texture2D" uid="uid://cskkk430mvcd5" path="res://assets/environment/ground/level1/stars.png" id="3_khi6k"]
+[ext_resource type="Texture2D" uid="uid://cms6cp7f4k0l0" path="res://assets/environment/ground/level1/moon.png" id="4_lfqmy"]
+[ext_resource type="Material" uid="uid://k8yn4u71g1eq" path="res://assets/materials/Clouds.tres" id="5_ilthu"]
+[ext_resource type="Texture2D" uid="uid://cv77bs5t8tq1j" path="res://assets/environment/ground/level1/clouds.png" id="6_et2ut"]
+[ext_resource type="Texture2D" uid="uid://cq72ue1w105rk" path="res://assets/environment/ground/level1/back_trees.png" id="7_rd42e"]
+[ext_resource type="PackedScene" uid="uid://drraokf2pxhfo" path="res://scenes/player/Player.tscn" id="8_4f4df"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_essld"]
+size = Vector2(881, 83)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auivy"]
+size = Vector2(10, 258)
+
+[node name="Level03" type="Node2D"]
+script = ExtResource("1_akins")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_3jpcd")
+volume_db = -10.0
+autoplay = true
+
+[node name="Ground" type="StaticBody2D" parent="."]
+z_index = -1
+
+[node name="Floor" type="CollisionShape2D" parent="Ground"]
+position = Vector2(0.5, 169.5)
+shape = SubResource("RectangleShape2D_essld")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-445, 44)
+shape = SubResource("RectangleShape2D_auivy")
+
+[node name="RightWall" type="CollisionShape2D" parent="Ground"]
+position = Vector2(444, 44)
+shape = SubResource("RectangleShape2D_auivy")
+
+[node name="Ground" type="Sprite2D" parent="Ground"]
+z_index = -1
+texture = ExtResource("1_c01ax")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
+z_index = -20
+texture = ExtResource("2_xkmby")
+
+[node name="Stars" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0.05)
+motion_offset = Vector2(0, 120)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Stars"]
+z_index = -20
+texture = ExtResource("3_khi6k")
+
+[node name="Moon" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(190, 37)
+motion_scale = Vector2(0.05, 0.05)
+motion_offset = Vector2(190, 70)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Moon"]
+z_index = -20
+texture = ExtResource("4_lfqmy")
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(150, 100)
+motion_mirroring = Vector2(719, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Clouds"]
+texture_repeat = 2
+material = ExtResource("5_ilthu")
+texture = ExtResource("6_et2ut")
+
+[node name="BackTrees" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.9)
+motion_offset = Vector2(0, 20)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BackTrees"]
+texture = ExtResource("7_rd42e")
+
+[node name="Player" parent="." instance=ExtResource("8_4f4df")]
+position = Vector2(-380, 105)
+enable_player = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2(0, -50)
+zoom = Vector2(2, 2)
+limit_left = -440
+limit_right = 440
+
+[node name="Node2D" type="Node2D" parent="."]

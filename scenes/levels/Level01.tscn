@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://drpuvhuacvk05"]
+[gd_scene load_steps=31 format=3 uid="uid://drpuvhuacvk05"]
 
 [ext_resource type="Script" path="res://scripts/levels/Level01.gd" id="1_3ixih"]
 [ext_resource type="PackedScene" uid="uid://drraokf2pxhfo" path="res://scenes/player/Player.tscn" id="2_jq1yw"]
 [ext_resource type="PackedScene" uid="uid://n7m6d6uimdab" path="res://scenes/misc/performance_display.tscn" id="2_piso6"]
+[ext_resource type="AudioStream" uid="uid://cc5yccsrt7ej2" path="res://assets/audio/music/Glitchvexa_Remaasted_for_Game.mp3" id="2_vtxvg"]
 [ext_resource type="Texture2D" uid="uid://bh1h2gh35y07i" path="res://assets/environment/ground/level1/sky.png" id="3_kl2rc"]
 [ext_resource type="Texture2D" uid="uid://cskkk430mvcd5" path="res://assets/environment/ground/level1/stars.png" id="4_u55wr"]
 [ext_resource type="Texture2D" uid="uid://cms6cp7f4k0l0" path="res://assets/environment/ground/level1/moon.png" id="5_xei6c"]
@@ -18,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://dqyqxhtiospii" path="res://assets/environment/ground/level1/front_trees.png" id="15_jonwd"]
 [ext_resource type="PackedScene" uid="uid://cdkqxvgwmhe7f" path="res://scenes/npcs/SpeakingNPC.tscn" id="16_87frp"]
 [ext_resource type="Texture2D" uid="uid://hk5awsk6e315" path="res://assets/environment/foliage/tree1.png" id="17_irc6l"]
+[ext_resource type="Texture2D" uid="uid://c8t4hwpoyfcfe" path="res://assets/sprites/NPC/Washington-Signal.png" id="20_tidks"]
 
 [sub_resource type="Animation" id="Animation_71kqe"]
 length = 0.001
@@ -56,6 +58,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -50)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScreenToBlack/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_dgjel"]
@@ -97,11 +111,66 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(700, -100), Vector2(0, -50)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScreenToBlack/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(0.554785, 0.757858),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mvjlj"]
+resource_name = "next_scene"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenToBlack/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"request_change_scene"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:enable_player")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cahyt"]
 _data = {
 "RESET": SubResource("Animation_71kqe"),
-"intro_cutscene": SubResource("Animation_dgjel")
+"intro_cutscene": SubResource("Animation_dgjel"),
+"next_scene": SubResource("Animation_mvjlj")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2hk8"]
@@ -109,6 +178,44 @@ size = Vector2(5.5, 378)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pncfo"]
 size = Vector2(6, 374)
+
+[sub_resource type="Animation" id="Animation_0a0dw"]
+resource_name = "go_go"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_qo8bv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r0byr"]
+_data = {
+"RESET": SubResource("Animation_qo8bv"),
+"go_go": SubResource("Animation_0a0dw")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jmmo8"]
 size = Vector2(21, 66)
@@ -121,6 +228,20 @@ callback_mode_method = 1
 libraries = {
 "": SubResource("AnimationLibrary_cahyt")
 }
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_vtxvg")
+volume_db = -10.0
+
+[node name="ScreenToBlack" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ScreenToBlack"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="PerformanceDisplay" parent="." instance=ExtResource("2_piso6")]
 
@@ -226,9 +347,32 @@ texture = ExtResource("17_irc6l")
 
 [node name="NPCs" type="Node2D" parent="."]
 
-[node name="SpeakingNPC" parent="." instance=ExtResource("16_87frp")]
-position = Vector2(24, 93)
-dialog_options = ["Test One", "Test Two", "Three", "F", "GGG", "chickcene"]
+[node name="SpeakingNPC" parent="NPCs" instance=ExtResource("16_87frp")]
+position = Vector2(-582, 94)
+dialog_options = ["Press [A] and [D] to move!"]
+
+[node name="SpeakingNPC2" parent="NPCs" instance=ExtResource("16_87frp")]
+position = Vector2(-278, 95)
+dialog_options = ["Press [S] to crouch and avoid bullets!"]
+
+[node name="SpeakingNPC3" parent="NPCs" instance=ExtResource("16_87frp")]
+position = Vector2(84, 94)
+dialog_options = ["[L. Click] to shoot, [R. Click to stab!"]
+
+[node name="SpeakingNPC4" parent="NPCs" instance=ExtResource("16_87frp")]
+position = Vector2(382, 64)
+dialog_options = ["Let's get the Hessians!"]
+
+[node name="Washington" type="Sprite2D" parent="NPCs"]
+position = Vector2(547, 64)
+texture = ExtResource("20_tidks")
+hframes = 5
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCs/Washington"]
+libraries = {
+"": SubResource("AnimationLibrary_r0byr")
+}
 
 [node name="SceneSwitch" type="Area2D" parent="."]
 position = Vector2(733, 65)
@@ -240,3 +384,5 @@ position = Vector2(11.5, 0)
 shape = SubResource("RectangleShape2D_jmmo8")
 
 [connection signal="body_entered" from="SceneSwitch" to="." method="_on_scene_switch_body_entered"]
+
+[editable path="NPCs/SpeakingNPC2"]

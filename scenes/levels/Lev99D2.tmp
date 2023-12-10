@@ -1,0 +1,403 @@
+[gd_scene load_steps=29 format=3 uid="uid://b6pot421hf25v"]
+
+[ext_resource type="Script" path="res://scripts/levels/Level02.gd" id="1_r0iqy"]
+[ext_resource type="PackedScene" uid="uid://n7m6d6uimdab" path="res://scenes/misc/performance_display.tscn" id="1_xslpt"]
+[ext_resource type="PackedScene" uid="uid://drraokf2pxhfo" path="res://scenes/player/Player.tscn" id="2_0gpvo"]
+[ext_resource type="AudioStream" uid="uid://cyqhnnnjv0ps2" path="res://assets/audio/music/Barricada_Remasted_for_Game.mp3" id="2_bsjn1"]
+[ext_resource type="Texture2D" uid="uid://cet8nj6ahe5jn" path="res://assets/environment/ground/level2/ground.png" id="3_4mma4"]
+[ext_resource type="Texture2D" uid="uid://dia4ujrvymbu5" path="res://assets/environment/ground/level2/back_snow.png" id="4_613ey"]
+[ext_resource type="Texture2D" uid="uid://b33vtj3mrl8di" path="res://assets/environment/ground/level2/houses.png" id="5_hve82"]
+[ext_resource type="Texture2D" uid="uid://dt1w8faxqbxte" path="res://assets/environment/ground/level2/trees.png" id="6_c3loq"]
+[ext_resource type="Texture2D" uid="uid://cm1pgq25oym04" path="res://assets/environment/ground/level2/crates.png" id="7_ffx1h"]
+[ext_resource type="Texture2D" uid="uid://uj3cn40vethh" path="res://assets/environment/ground/level2/cannons.png" id="8_o5iya"]
+[ext_resource type="Texture2D" uid="uid://duupjk2aj74hq" path="res://assets/environment/ground/level2/cart.png" id="9_abb2u"]
+[ext_resource type="Texture2D" uid="uid://dbt6kohkmpnr0" path="res://assets/environment/ground/level2/sky.png" id="10_w8ruy"]
+[ext_resource type="Texture2D" uid="uid://dnysyhl65jbdf" path="res://assets/environment/ground/level2/stars.png" id="11_phaba"]
+[ext_resource type="Texture2D" uid="uid://d32mtje8extcc" path="res://assets/environment/ground/level2/moon.png" id="12_uytcy"]
+[ext_resource type="Shader" path="res://shaders/ScrollingShader.gdshader" id="13_m7dp6"]
+[ext_resource type="Texture2D" uid="uid://b75yey2ooa53v" path="res://assets/environment/ground/level2/clouds.png" id="14_k8485"]
+[ext_resource type="Texture2D" uid="uid://y568yldtkq0s" path="res://assets/environment/ground/level2/back_houses.png" id="15_f5k7q"]
+[ext_resource type="Texture2D" uid="uid://byfgebgrrmtva" path="res://assets/environment/ground/level2/far_back_houses.png" id="16_u8bak"]
+[ext_resource type="Texture2D" uid="uid://hk5awsk6e315" path="res://assets/environment/foliage/tree1.png" id="18_5e5im"]
+[ext_resource type="PackedScene" uid="uid://btu0qodxh4gbq" path="res://scenes/enemy/enemy.tscn" id="20_jo8xy"]
+
+[sub_resource type="Animation" id="Animation_agiob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1200, -50)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player/RemoteTransform2D:remote_path")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [NodePath("")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:enable_player")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScreenToBlack/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mx6mm"]
+resource_name = "intro_cutscene"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 0.535887),
+"update": 0,
+"values": [Vector2(1000, -150), Vector2(0, -50)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player/RemoteTransform2D:remote_path")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(0.840896, 0.68302),
+"update": 1,
+"values": [NodePath(""), NodePath("../../Camera2D")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:enable_player")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScreenToBlack/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1n0kc"]
+resource_name = "next_scene"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenToBlack/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:enable_player")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"request_change_scene"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qr1go"]
+_data = {
+"RESET": SubResource("Animation_agiob"),
+"intro_cutscene": SubResource("Animation_mx6mm"),
+"next_scene": SubResource("Animation_1n0kc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1jin"]
+size = Vector2(2938.5, 83)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vpax"]
+size = Vector2(14, 258)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8dem"]
+shader = ExtResource("13_m7dp6")
+shader_parameter/motion = Vector2(10, 0)
+shader_parameter/scale = 1.0
+shader_parameter/offset = Vector2(1469, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tp711"]
+size = Vector2(21, 66)
+
+[node name="Level02" type="Node2D"]
+script = ExtResource("1_r0iqy")
+
+[node name="CutscenePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qr1go")
+}
+speed_scale = 300.0
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_bsjn1")
+volume_db = -10.0
+autoplay = true
+
+[node name="ScreenToBlack" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ScreenToBlack"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PerformanceDisplay" parent="." instance=ExtResource("1_xslpt")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1419, 105)
+offset = Vector2(1200, -50)
+zoom = Vector2(2, 2)
+limit_left = -1460
+limit_right = 1460
+
+[node name="Player" parent="." instance=ExtResource("2_0gpvo")]
+position = Vector2(-1380, 105)
+enable_player = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+z_index = -1
+
+[node name="Floor" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-0.25, 169.5)
+shape = SubResource("RectangleShape2D_k1jin")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-1476, 44)
+shape = SubResource("RectangleShape2D_7vpax")
+
+[node name="RightWall" type="CollisionShape2D" parent="Ground"]
+position = Vector2(1477, 44)
+shape = SubResource("RectangleShape2D_7vpax")
+
+[node name="Ground" type="Sprite2D" parent="Ground"]
+texture = ExtResource("3_4mma4")
+
+[node name="BackSnow" type="Sprite2D" parent="Ground"]
+z_index = -1
+texture = ExtResource("4_613ey")
+
+[node name="Textures" type="Node2D" parent="."]
+z_index = -1
+
+[node name="FrontBuildings" type="Sprite2D" parent="Textures"]
+z_index = -1
+texture = ExtResource("5_hve82")
+
+[node name="Trees" type="Sprite2D" parent="Textures"]
+texture = ExtResource("6_c3loq")
+
+[node name="Crates" type="Sprite2D" parent="Textures"]
+texture = ExtResource("7_ffx1h")
+
+[node name="Cannons" type="Sprite2D" parent="Textures"]
+texture = ExtResource("8_o5iya")
+
+[node name="Cart" type="Sprite2D" parent="Textures"]
+texture = ExtResource("9_abb2u")
+
+[node name="SceneSwapTree" type="Sprite2D" parent="Textures"]
+z_index = 1
+position = Vector2(-1458, 68)
+scale = Vector2(0.990741, 0.990741)
+texture = ExtResource("18_5e5im")
+
+[node name="SceneSwapTree2" type="Sprite2D" parent="Textures"]
+z_index = 1
+position = Vector2(1454, 68)
+scale = Vector2(0.990741, 0.990741)
+texture = ExtResource("18_5e5im")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
+texture = ExtResource("10_w8ruy")
+
+[node name="Stars" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Stars"]
+position = Vector2(-30, 102)
+texture = ExtResource("11_phaba")
+
+[node name="Moon" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Moon"]
+position = Vector2(-314, 35)
+texture = ExtResource("12_uytcy")
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(150, 100)
+motion_mirroring = Vector2(719, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Clouds"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_j8dem")
+position = Vector2(-294, -10)
+texture = ExtResource("14_k8485")
+
+[node name="FarBackBuildings" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.99, 0.99)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FarBackBuildings"]
+position = Vector2(0, 18)
+texture = ExtResource("16_u8bak")
+
+[node name="BackBuildings" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.98, 0.98)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BackBuildings"]
+position = Vector2(0, 18)
+texture = ExtResource("15_f5k7q")
+
+[node name="NPC" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="NPC"]
+
+[node name="Enemy" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-907, 97)
+
+[node name="Enemy2" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-765, 97)
+
+[node name="Enemy3" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-491, 97)
+
+[node name="Enemy4" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-545, 97)
+
+[node name="Enemy5" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-411, 97)
+
+[node name="Enemy6" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-14, 97)
+
+[node name="Enemy7" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-91, 97)
+
+[node name="Enemy8" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-58, 97)
+
+[node name="Enemy9" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(-161, 103)
+
+[node name="Enemy10" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(191, 103)
+
+[node name="Enemy11" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(337, 103)
+
+[node name="Enemy12" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(375, 103)
+
+[node name="Enemy13" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(596, 103)
+
+[node name="Enemy14" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(655, 103)
+
+[node name="Enemy15" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(909, 103)
+
+[node name="Enemy16" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(886, 103)
+
+[node name="Enemy17" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(975, 103)
+
+[node name="Enemy18" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(1199, 103)
+
+[node name="Enemy19" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(1302, 103)
+
+[node name="Enemy20" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
+position = Vector2(1256, 103)
+
+[node name="SceneSwitch" type="Area2D" parent="."]
+position = Vector2(1448, 100)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneSwitch"]
+position = Vector2(11.5, 0)
+shape = SubResource("RectangleShape2D_tp711")
+
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]
+[connection signal="body_entered" from="SceneSwitch" to="." method="_on_scene_switch_body_entered"]

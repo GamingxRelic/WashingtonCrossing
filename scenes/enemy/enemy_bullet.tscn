@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw6n1cb3uoc25"]
+
+[ext_resource type="PackedScene" uid="uid://btj5ss5aiw7b7" path="res://scenes/weapons/Bullet.tscn" id="1_o6j6y"]
+[ext_resource type="Texture2D" uid="uid://lj2s4nxf2ybi" path="res://assets/sprites/weapons/enemy_musketball.png" id="2_klaes"]
+
+[node name="EnemyBullet" instance=ExtResource("1_o6j6y")]
+speed = 3000.0
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_klaes")
+
+[node name="Timer" parent="." index="2"]
+wait_time = 2.0
+
+[node name="Area2D" parent="." index="3"]
+collision_mask = 3

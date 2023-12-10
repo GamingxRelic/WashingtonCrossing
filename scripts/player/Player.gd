@@ -75,8 +75,12 @@ var facing := 1 # 0 is left, 1 is right
 
 # Sound variables
 @onready var primary_audio := $Audio/PrimaryAudio
+@onready var secondary_audio := $Audio/SecondaryAudio
+@onready var footstep_audio := $Audio/Footsteps
+@onready var hurt_audio := $Audio/HurtAudio
 
 func _ready():
+	GameManager.player = self
 	$Gun_Tip/Attack_Box/CollisionShape2D.disabled = true
 	anim_tree.set("parameters/ground/transition_request", "idle")
 
@@ -97,9 +101,14 @@ func _physics_process(delta):
 
 	#	# Corner Correction
 	#	corner_correction()
+	
+		# Audio
+		audio()
 	#
 	#	# Stair Check
 		stair_check()
+		
+		GameManager.player = self
 
 		move_and_slide()
 
@@ -147,6 +156,18 @@ func anim_tree_transition_requests():
 	elif !attacking and !reloading and !crouching:
 		anim_tree.set("parameters/ground/transition_request", "idle")
 
+func audio():
+	if footstep_audio.playing and enable_player:
+		if reloading:
+			footstep_audio.pitch_scale = 1.25
+		else:
+			footstep_audio.pitch_scale = 2
+	if !footstep_audio.playing and velocity.x != 0.0 and enable_player:
+		footstep_audio.play()
+	
+	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right") or !enable_player or velocity.x == 0.0:
+		footstep_audio.stop()
+		
 
 func get_input():
 	if Input.is_action_just_pressed("left_click") and !reloading and !shooting and !stabbing and !crouching: #and !is_jumping:
@@ -194,8 +215,8 @@ func stab():
 		anim_tree.set("parameters/attack/transition_request", "stab_right")
 
 func reload():
-	primary_audio.stream = AudioManager.sounds["reload"]
-	primary_audio.play()
+	secondary_audio.stream = AudioManager.sounds["reload"]
+	secondary_audio.play()
 	reloading = true
 	anim_player.play("reload")
 
@@ -297,9 +318,6 @@ func _on_attack_box_body_entered(body):
 	if body.is_in_group("enemy"):
 		body.damage()
 
-
-func _on_animation_player_animation_finished(anim_name):
-	pass
-	#match anim_name:
-	#	"stand_up":
-	#		pass
+func damage():
+	GameManager.health -= 1
+	hurt_audio.play()

@@ -1,0 +1,214 @@
+[gd_scene load_steps=23 format=3 uid="uid://bx2kkq0er66q4"]
+
+[ext_resource type="Texture2D" uid="uid://bgc3d8yidgq5t" path="res://assets/sprites/NPC/ragdoll/head.png" id="1_cklxr"]
+[ext_resource type="Texture2D" uid="uid://be04yo3c4rvg2" path="res://assets/sprites/NPC/ragdoll/Torso.png" id="2_dvkwt"]
+[ext_resource type="Texture2D" uid="uid://dt4sa25cuan41" path="res://assets/sprites/NPC/ragdoll/RShoulder.png" id="3_mpkgo"]
+[ext_resource type="Texture2D" uid="uid://dlixfdt0ap65g" path="res://assets/sprites/NPC/ragdoll/RForearm.png" id="4_e2r3l"]
+[ext_resource type="Texture2D" uid="uid://cm3chyqi4mek0" path="res://assets/sprites/NPC/ragdoll/LShoulder.png" id="5_x4mym"]
+[ext_resource type="Texture2D" uid="uid://cagdgutqoxe80" path="res://assets/sprites/NPC/ragdoll/LForearm.png" id="6_h3sat"]
+[ext_resource type="Texture2D" uid="uid://co1hgdwy64ddh" path="res://assets/sprites/NPC/ragdoll/RQuad.png" id="7_ieiur"]
+[ext_resource type="Texture2D" uid="uid://dr0jpmvs0ujgl" path="res://assets/sprites/NPC/ragdoll/RCalf.png" id="8_sk764"]
+[ext_resource type="Texture2D" uid="uid://dh38haq3wg3uv" path="res://assets/sprites/NPC/ragdoll/LQuad.png" id="9_xqbve"]
+[ext_resource type="Texture2D" uid="uid://cul88p3vgqn26" path="res://assets/sprites/NPC/ragdoll/LCalf.png" id="10_7d3yx"]
+[ext_resource type="Texture2D" uid="uid://c0o8y0r7s1lrb" path="res://assets/sprites/NPC/ragdoll/hat.png" id="11_sailw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onyg1"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hcfyp"]
+radius = 4.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sm7rc"]
+radius = 2.23607
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1bpcf"]
+radius = 2.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l8roj"]
+radius = 2.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tp3v3"]
+radius = 2.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xklor"]
+radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4o357"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_llfwu"]
+radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7y3m0"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpedo"]
+radius = 4.0
+
+[node name="Ragdoll_Enemy" type="Node2D"]
+modulate = Color(0.509804, 0, 0.0666667, 1)
+
+[node name="HeadTorso" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(-1, -9)
+node_a = NodePath("../Head")
+node_b = NodePath("../Torso")
+
+[node name="RShoulderTorso" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(-7, -6)
+node_a = NodePath("../RShoulder")
+node_b = NodePath("../Torso")
+
+[node name="RShoulderRForearm" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(-8, -2)
+node_a = NodePath("../RShoulder")
+node_b = NodePath("../RForearm")
+
+[node name="LShoulderTorso" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(1, -6)
+node_a = NodePath("../RShoulder")
+node_b = NodePath("../Torso")
+
+[node name="LShoulderLForearm" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(4, -2)
+node_a = NodePath("../RShoulder")
+node_b = NodePath("../RForearm")
+
+[node name="RQuadTorso" type="PinJoint2D" parent="."]
+position = Vector2(1, -6)
+node_a = NodePath("../RQuad")
+node_b = NodePath("../Torso")
+
+[node name="RQuadRCalf" type="PinJoint2D" parent="."]
+position = Vector2(1, -6)
+node_a = NodePath("../RQuad")
+node_b = NodePath("../RCalf")
+
+[node name="LQuadTorso" type="PinJoint2D" parent="."]
+position = Vector2(1, -6)
+node_a = NodePath("../LQuad")
+node_b = NodePath("../Torso")
+
+[node name="LQuadLCalf" type="PinJoint2D" parent="."]
+position = Vector2(1, -6)
+node_a = NodePath("../LCalf")
+node_b = NodePath("../Torso")
+
+[node name="Head" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Head"]
+texture = ExtResource("1_cklxr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2(-1, -15)
+shape = SubResource("CircleShape2D_onyg1")
+
+[node name="Torso" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Torso"]
+texture = ExtResource("2_dvkwt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torso"]
+position = Vector2(-2, 0)
+shape = SubResource("CapsuleShape2D_hcfyp")
+
+[node name="RShoulder" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="RShoulder"]
+texture = ExtResource("3_mpkgo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RShoulder"]
+position = Vector2(-8, -6)
+shape = SubResource("CircleShape2D_sm7rc")
+
+[node name="RForearm" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="RForearm"]
+texture = ExtResource("4_e2r3l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RForearm"]
+position = Vector2(-8, 1)
+shape = SubResource("CapsuleShape2D_1bpcf")
+
+[node name="LShoulder" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="LShoulder"]
+texture = ExtResource("5_x4mym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LShoulder"]
+position = Vector2(3, -6)
+shape = SubResource("CircleShape2D_l8roj")
+
+[node name="LForearm" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="LForearm"]
+texture = ExtResource("6_h3sat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LForearm"]
+position = Vector2(4, 0)
+shape = SubResource("CapsuleShape2D_tp3v3")
+
+[node name="RQuad" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="RQuad"]
+texture = ExtResource("7_ieiur")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RQuad"]
+position = Vector2(-4, 12)
+shape = SubResource("CircleShape2D_xklor")
+
+[node name="RCalf" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="RCalf"]
+texture = ExtResource("8_sk764")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RCalf"]
+position = Vector2(-6, 19)
+shape = SubResource("CapsuleShape2D_4o357")
+
+[node name="LQuad" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="LQuad"]
+texture = ExtResource("9_xqbve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LQuad"]
+position = Vector2(2, 12)
+shape = SubResource("CircleShape2D_llfwu")
+
+[node name="LCalf" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="LCalf"]
+texture = ExtResource("10_7d3yx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LCalf"]
+position = Vector2(3, 19)
+shape = SubResource("CapsuleShape2D_7y3m0")
+
+[node name="Hat" type="RigidBody2D" parent="."]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Hat"]
+texture = ExtResource("11_sailw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hat"]
+position = Vector2(-2, -19)
+shape = SubResource("CircleShape2D_hpedo")

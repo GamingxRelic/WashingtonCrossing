@@ -1,18 +1,20 @@
-[gd_scene load_steps=62 format=3 uid="uid://drraokf2pxhfo"]
+[gd_scene load_steps=64 format=3 uid="uid://drraokf2pxhfo"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_bipxa"]
 [ext_resource type="Texture2D" uid="uid://dnop8noyb6wey" path="res://assets/sprites/player/Idle.png" id="2_20tp7"]
 [ext_resource type="Texture2D" uid="uid://cfhkevxw2tox8" path="res://assets/sprites/player/Run.png" id="3_8rhxu"]
 [ext_resource type="Texture2D" uid="uid://blorsejtyuseg" path="res://assets/sprites/player/Stab.png" id="4_i4bk3"]
-[ext_resource type="AudioStream" uid="uid://5gekcp003v1v" path="res://assets/audio/weapon/Reload.mp3" id="5_2xv38"]
 [ext_resource type="Texture2D" uid="uid://bv4k0o1uanwgc" path="res://assets/sprites/player/Shoot.png" id="5_46tsl"]
 [ext_resource type="Texture2D" uid="uid://dqoqkrvhhvvax" path="res://assets/sprites/player/Reload.png" id="6_nmmge"]
 [ext_resource type="Texture2D" uid="uid://b08rw7p6qqd5s" path="res://assets/sprites/player/Walkreload.png" id="7_l1ibd"]
 [ext_resource type="Texture2D" uid="uid://cys6c54ljy65o" path="res://assets/sprites/player/standup.png" id="8_02xrj"]
 [ext_resource type="Texture2D" uid="uid://c6xpa2cjyto36" path="res://assets/sprites/player/crouch.png" id="9_e1pmg"]
+[ext_resource type="AudioStream" uid="uid://b46vfadxq0rmt" path="res://assets/audio/weapon/gunshot.mp3" id="10_lo047"]
+[ext_resource type="AudioStream" uid="uid://dwpxs04n6bvrt" path="res://assets/audio/footsteps/snowWalkingBit.mp3" id="11_1sd7t"]
+[ext_resource type="AudioStream" uid="uid://c1hkcko4da8nh" path="res://assets/audio/weapon/hurt.mp3" id="12_nymrg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcime"]
-size = Vector2(14, 44)
+size = Vector2(14, 45)
 
 [sub_resource type="Animation" id="Animation_3tcl0"]
 length = 0.001
@@ -159,6 +161,131 @@ tracks/11/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CollisionShape2D:shape:size")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 45)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CollisionShape2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jc3b5"]
+resource_name = "crouch_idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_e1pmg")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:crouching")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:offset")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D:shape:size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 23)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 11)]
 }
 
 [sub_resource type="Animation" id="Animation_ot4o3"]
@@ -929,82 +1056,6 @@ tracks/9/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_rwuhy"]
-resource_name = "walking_reload"
-length = 1.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_l1ibd")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:attacking")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:reloading")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
 [sub_resource type="Animation" id="Animation_ftj5l"]
 resource_name = "stand_up"
 length = 0.5
@@ -1080,11 +1131,34 @@ tracks/5/keys = {
 "update": 1,
 "values": [Vector2(0, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CollisionShape2D:shape:size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(14, 23), Vector2(14, 44)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 11), Vector2(0, 0.5)]
+}
 
-[sub_resource type="Animation" id="Animation_jc3b5"]
-resource_name = "crouch_idle"
-length = 0.6
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_rwuhy"]
+resource_name = "walking_reload"
+length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1095,7 +1169,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_e1pmg")]
+"values": [ExtResource("7_l1ibd")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1107,19 +1181,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [6]
+"values": [11]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("Sprite2D:offset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [Vector2(0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1128,34 +1202,34 @@ tracks/3/path = NodePath("Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath(".:crouching")
+tracks/4/path = NodePath(".:attacking")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:offset")
+tracks/5/path = NodePath(".:reloading")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector2(0, 0)]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_al2xn"]
@@ -1315,9 +1389,9 @@ animation = &"stand_up"
 animation = &"walking_reload"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kkktl"]
-graph_offset = Vector2(211.576, 37.9559)
+graph_offset = Vector2(8.22565, 74.0188)
 nodes/Blend2/node = SubResource("AnimationNodeBlend2_ntkuo")
-nodes/Blend2/position = Vector2(406.009, 460.768)
+nodes/Blend2/position = Vector2(380, 440)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_nqlbi")
 nodes/TimeScale/position = Vector2(1035.37, -147.166)
 nodes/TimeSeek/node = SubResource("AnimationNodeTimeSeek_3gj6a")
@@ -1360,7 +1434,7 @@ nodes/run_right/position = Vector2(260, -180)
 nodes/running/node = SubResource("AnimationNodeTransition_ve48w")
 nodes/running/position = Vector2(420, -260)
 nodes/running_timescale/node = SubResource("AnimationNodeTimeScale_asjlj")
-nodes/running_timescale/position = Vector2(600, -200)
+nodes/running_timescale/position = Vector2(640, -180)
 nodes/shoot_left/node = SubResource("AnimationNodeAnimation_mju4x")
 nodes/shoot_left/position = Vector2(80, -60)
 nodes/shoot_right/node = SubResource("AnimationNodeAnimation_j0fe8")
@@ -1388,7 +1462,7 @@ size = Vector2(18.5, 21)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 floor_stop_on_slope = false
 floor_max_angle = 0.907571
 floor_snap_length = 8.0
@@ -1399,7 +1473,6 @@ texture = ExtResource("2_20tp7")
 hframes = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_vcime")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1426,9 +1499,9 @@ parameters/crouching/current_index = 0
 parameters/falling/current_state = "fall_left"
 parameters/falling/transition_request = "fall_left"
 parameters/falling/current_index = 0
-parameters/ground/current_state = "crouch"
+parameters/ground/current_state = "reloading"
 parameters/ground/transition_request = ""
-parameters/ground/current_index = 4
+parameters/ground/current_index = 3
 parameters/in_air/current_state = "falling"
 parameters/in_air/transition_request = "jumping"
 parameters/in_air/current_index = 1
@@ -1442,7 +1515,7 @@ parameters/running/current_state = "run_right"
 parameters/running/transition_request = ""
 parameters/running/current_index = 1
 parameters/running_timescale/scale = 1.0
-parameters/standup_timescale/scale = 1.25
+parameters/standup_timescale/scale = 2.0
 
 [node name="Corner_Correction_Raycasts" type="Node2D" parent="."]
 visible = false
@@ -1510,6 +1583,7 @@ hit_from_inside = true
 position = Vector2(31, -6)
 
 [node name="Attack_Box" type="Area2D" parent="Gun_Tip"]
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gun_Tip/Attack_Box"]
 shape = SubResource("RectangleShape2D_rd3c1")
@@ -1518,9 +1592,18 @@ disabled = true
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="PrimaryAudio" type="AudioStreamPlayer2D" parent="Audio"]
-stream = ExtResource("5_2xv38")
+stream = ExtResource("10_lo047")
+area_mask = 2
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[node name="SecondaryAudio" type="AudioStreamPlayer2D" parent="Audio"]
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("11_1sd7t")
+pitch_scale = 2.0
+
+[node name="HurtAudio" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("12_nymrg")
+
 [connection signal="body_entered" from="Item_Pickup_Range" to="." method="_on_item_pickup_range_body_entered"]
 [connection signal="body_exited" from="Item_Pickup_Range" to="." method="_on_item_pickup_range_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
