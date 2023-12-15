@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://c24bl76ames1b" path="res://assets/environment/ground/level3/scene.png" id="1_c01ax"]
 [ext_resource type="AudioStream" uid="uid://0afdnxix8ecs" path="res://assets/audio/music/Song_1Remix.mp3" id="2_3jpcd"]
 [ext_resource type="Texture2D" uid="uid://bh1h2gh35y07i" path="res://assets/environment/ground/level1/sky.png" id="2_xkmby"]
-[ext_resource type="PackedScene" uid="uid://n7m6d6uimdab" path="res://scenes/misc/performance_display.tscn" id="3_aha82"]
 [ext_resource type="Texture2D" uid="uid://cskkk430mvcd5" path="res://assets/environment/ground/level1/stars.png" id="3_khi6k"]
 [ext_resource type="Texture2D" uid="uid://cms6cp7f4k0l0" path="res://assets/environment/ground/level1/moon.png" id="4_lfqmy"]
 [ext_resource type="Material" uid="uid://k8yn4u71g1eq" path="res://assets/materials/Clouds.tres" id="5_ilthu"]
@@ -14,12 +13,28 @@
 [ext_resource type="Texture2D" uid="uid://7r4w0jqe0b2n" path="res://assets/environment/ground/level3/campfire-Sheet.png" id="11_787tp"]
 [ext_resource type="PackedScene" uid="uid://cdkqxvgwmhe7f" path="res://scenes/npcs/SpeakingNPC.tscn" id="12_2qh57"]
 [ext_resource type="Texture2D" uid="uid://bbmbkoqy0ysoj" path="res://assets/sprites/NPC/Team-Idles.png" id="13_od6o4"]
+[ext_resource type="PackedScene" uid="uid://cbb8miyynq0tu" path="res://scenes/npcs/speaking_npc_4.tscn" id="14_rtepo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_essld"]
 size = Vector2(881, 83)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_auivy"]
 size = Vector2(10, 258)
+
+[sub_resource type="Animation" id="Animation_e3285"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_xxspl"]
 resource_name = "fire"
@@ -38,7 +53,13 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_e3285"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_03amc"]
+_data = {
+"RESET": SubResource("Animation_e3285"),
+"fire": SubResource("Animation_xxspl")
+}
+
+[sub_resource type="Animation" id="Animation_80wfv"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -50,13 +71,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_03amc"]
-_data = {
-"RESET": SubResource("Animation_e3285"),
-"fire": SubResource("Animation_xxspl")
+"values": [37]
 }
 
 [sub_resource type="Animation" id="Animation_tforp"]
@@ -76,21 +91,6 @@ tracks/0/keys = {
 "values": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
 }
 
-[sub_resource type="Animation" id="Animation_80wfv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [37]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rvh4t"]
 _data = {
 "RESET": SubResource("Animation_80wfv"),
@@ -98,14 +98,14 @@ _data = {
 }
 
 [node name="Level03" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_akins")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("2_3jpcd")
 volume_db = -10.0
 autoplay = true
-
-[node name="PerformanceDisplay" parent="." instance=ExtResource("3_aha82")]
 
 [node name="Ground" type="StaticBody2D" parent="."]
 z_index = -1
@@ -194,10 +194,6 @@ speed_scale = 0.75
 
 [node name="NPC" type="Node2D" parent="."]
 
-[node name="SpeakingNPC" parent="NPC" instance=ExtResource("12_2qh57")]
-position = Vector2(-120, 96)
-dialog_options = ["We won!"]
-
 [node name="SpeakingNPC2" parent="NPC" instance=ExtResource("12_2qh57")]
 position = Vector2(105, 96)
 dialog_options = ["Thanks for playing!"]
@@ -217,5 +213,17 @@ frame = 37
 libraries = {
 "": SubResource("AnimationLibrary_rvh4t")
 }
+
+[node name="SpeakingNPC_4" parent="NPC" instance=ExtResource("14_rtepo")]
+position = Vector2(-92, 97)
+dialog_options = ["We won!", "We got 'em!", "WOOO!"]
+
+[node name="Snow" type="CPUParticles2D" parent="."]
+position = Vector2(-70, -107)
+amount = 400
+speed_scale = 0.25
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(600, 200)
 
 [editable path="NPC/SpeakingNPC2"]

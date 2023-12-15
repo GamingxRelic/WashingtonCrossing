@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b6pot421hf25v"]
+[gd_scene load_steps=37 format=3 uid="uid://b6pot421hf25v"]
 
 [ext_resource type="Script" path="res://scripts/levels/Level02.gd" id="1_r0iqy"]
 [ext_resource type="PackedScene" uid="uid://n7m6d6uimdab" path="res://scenes/misc/performance_display.tscn" id="1_xslpt"]
@@ -20,6 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://byfgebgrrmtva" path="res://assets/environment/ground/level2/far_back_houses.png" id="16_u8bak"]
 [ext_resource type="Texture2D" uid="uid://hk5awsk6e315" path="res://assets/environment/foliage/tree1.png" id="18_5e5im"]
 [ext_resource type="PackedScene" uid="uid://btu0qodxh4gbq" path="res://scenes/enemy/enemy.tscn" id="20_jo8xy"]
+[ext_resource type="Texture2D" uid="uid://ckd8dsrrgmdd1" path="res://assets/sprites/NPC/Team-Shoots.png" id="21_k2tf5"]
+[ext_resource type="Texture2D" uid="uid://ca08iq6jsyuks" path="res://assets/sprites/NPC/Team-Reload.png" id="22_ach3x"]
+[ext_resource type="Script" path="res://scripts/npc/TeamBG.gd" id="22_jr4u5"]
+[ext_resource type="Texture2D" uid="uid://dwpl2xd2lnmpa" path="res://assets/sprites/NPC/Enemy-Shoot.png" id="24_m2p5o"]
 
 [sub_resource type="Animation" id="Animation_agiob"]
 length = 0.001
@@ -185,19 +189,136 @@ shader_parameter/motion = Vector2(10, 0)
 shader_parameter/scale = 1.0
 shader_parameter/offset = Vector2(1469, 180)
 
+[sub_resource type="Animation" id="Animation_l7g1b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("21_k2tf5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0rrvt"]
+resource_name = "background_npc_anim"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("21_k2tf5"), ExtResource("22_ach3x")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 10]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bysam"]
+_data = {
+"RESET": SubResource("Animation_l7g1b"),
+"background_npc_anim": SubResource("Animation_0rrvt")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xcebt"]
+_data = {
+"RESET": SubResource("Animation_l7g1b"),
+"background_npc_anim": SubResource("Animation_0rrvt")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tp711"]
 size = Vector2(21, 66)
 
 [node name="Level02" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_r0iqy")
 
 [node name="CutscenePlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_qr1go")
 }
-speed_scale = 300.0
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("2_bsjn1")
 volume_db = -10.0
 autoplay = true
@@ -212,7 +333,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="PerformanceDisplay" parent="." instance=ExtResource("1_xslpt")]
+[node name="UI" parent="." instance=ExtResource("1_xslpt")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1419, 105)
@@ -389,6 +510,184 @@ position = Vector2(1302, 103)
 [node name="Enemy20" parent="NPC/Enemies" instance=ExtResource("20_jo8xy")]
 position = Vector2(1256, 103)
 
+[node name="Background" type="Node2D" parent="NPC"]
+
+[node name="TeamBG1" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+z_index = -3
+position = Vector2(-1217, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG1"]
+libraries = {
+"": SubResource("AnimationLibrary_bysam")
+}
+
+[node name="TeamBG2" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+z_index = -3
+position = Vector2(-1180, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG2"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG7" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+z_index = -3
+position = Vector2(664, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG7"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG8" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+z_index = -3
+position = Vector2(-32, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG8"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG9" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+z_index = -3
+position = Vector2(18, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG9"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG3" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+z_index = -3
+position = Vector2(-667, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG3"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG4" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.384314, 0.0862745, 0, 1)
+z_index = -3
+position = Vector2(-449, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+flip_h = true
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG4"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG10" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.384314, 0.0862745, 0, 1)
+z_index = -3
+position = Vector2(121, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+flip_h = true
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG10"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG11" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.384314, 0.0862745, 0, 1)
+z_index = -3
+position = Vector2(141, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+flip_h = true
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG11"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG5" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.384314, 0.0862745, 0, 1)
+z_index = -3
+position = Vector2(-192, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+flip_h = true
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG5"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="TeamBG6" type="Sprite2D" parent="NPC/Background"]
+modulate = Color(0.384314, 0.0862745, 0, 1)
+z_index = -3
+position = Vector2(925, 85)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("21_k2tf5")
+flip_h = true
+hframes = 3
+vframes = 4
+script = ExtResource("22_jr4u5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/TeamBG6"]
+libraries = {
+"": SubResource("AnimationLibrary_xcebt")
+}
+
+[node name="EnemyBG1" type="Sprite2D" parent="NPC/Background"]
+visible = false
+texture = ExtResource("24_m2p5o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPC/Background/EnemyBG1"]
+
 [node name="SceneSwitch" type="Area2D" parent="."]
 position = Vector2(1448, 100)
 collision_layer = 0
@@ -397,6 +696,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneSwitch"]
 position = Vector2(11.5, 0)
 shape = SubResource("RectangleShape2D_tp711")
+
+[node name="Snow" type="CPUParticles2D" parent="."]
+position = Vector2(-39, -118)
+amount = 1000
+speed_scale = 0.25
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(2000, 200)
 
 [connection signal="finished" from="Music" to="." method="_on_music_finished"]
 [connection signal="body_entered" from="SceneSwitch" to="." method="_on_scene_switch_body_entered"]

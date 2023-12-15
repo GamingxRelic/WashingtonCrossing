@@ -5,6 +5,7 @@ var music : AudioStreamPlayer2D
 func _ready() -> void:
 	GameManager.level = self
 	music = $Music as AudioStreamPlayer2D
+	GameManager.music = music
 	GameManager.change_music_volume.connect(_on_change_music_volume)
 	music.volume_db = GameManager.music_volume
 	if !GameManager.mute_music:
@@ -28,7 +29,11 @@ func _process(_delta):
 				GameManager.music_volume = -10.0
 				GameManager.mute_music = false
 				music.play()
-				
+		
+	if Input.is_action_just_pressed("pause"):
+		var pause_menu = preload("res://scenes/menus/pause_menu.tscn").instantiate()
+		GameManager.level.call_deferred("add_child", pause_menu)
+
 func _on_change_music_volume():
 	print(music.volume_db)
 	music.volume_db = GameManager.music_volume

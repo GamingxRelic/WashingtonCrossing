@@ -1,8 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://drpuvhuacvk05"]
+[gd_scene load_steps=32 format=3 uid="uid://drpuvhuacvk05"]
 
 [ext_resource type="Script" path="res://scripts/levels/Level01.gd" id="1_3ixih"]
 [ext_resource type="PackedScene" uid="uid://drraokf2pxhfo" path="res://scenes/player/Player.tscn" id="2_jq1yw"]
-[ext_resource type="PackedScene" uid="uid://n7m6d6uimdab" path="res://scenes/misc/performance_display.tscn" id="2_piso6"]
 [ext_resource type="AudioStream" uid="uid://cc5yccsrt7ej2" path="res://assets/audio/music/Glitchvexa_Remaasted_for_Game.mp3" id="2_vtxvg"]
 [ext_resource type="Texture2D" uid="uid://bh1h2gh35y07i" path="res://assets/environment/ground/level1/sky.png" id="3_kl2rc"]
 [ext_resource type="Texture2D" uid="uid://cskkk430mvcd5" path="res://assets/environment/ground/level1/stars.png" id="4_u55wr"]
@@ -20,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://cdkqxvgwmhe7f" path="res://scenes/npcs/SpeakingNPC.tscn" id="16_87frp"]
 [ext_resource type="Texture2D" uid="uid://hk5awsk6e315" path="res://assets/environment/foliage/tree1.png" id="17_irc6l"]
 [ext_resource type="Texture2D" uid="uid://c8t4hwpoyfcfe" path="res://assets/sprites/NPC/Washington-Signal.png" id="20_tidks"]
+[ext_resource type="PackedScene" uid="uid://cdfmbky4axnxi" path="res://scenes/npcs/speaking_npc_2.tscn" id="21_qvta0"]
+[ext_resource type="PackedScene" uid="uid://cbb8miyynq0tu" path="res://scenes/npcs/speaking_npc_4.tscn" id="22_r3hxv"]
 
 [sub_resource type="Animation" id="Animation_71kqe"]
 length = 0.001
@@ -179,6 +180,21 @@ size = Vector2(5.5, 378)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pncfo"]
 size = Vector2(6, 374)
 
+[sub_resource type="Animation" id="Animation_qo8bv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
 [sub_resource type="Animation" id="Animation_0a0dw"]
 resource_name = "go_go"
 length = 0.5
@@ -196,21 +212,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
-[sub_resource type="Animation" id="Animation_qo8bv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r0byr"]
 _data = {
 "RESET": SubResource("Animation_qo8bv"),
@@ -221,6 +222,7 @@ _data = {
 size = Vector2(21, 66)
 
 [node name="Level01" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_3ixih")
 
 [node name="CutscenePlayer" type="AnimationPlayer" parent="."]
@@ -230,6 +232,7 @@ libraries = {
 }
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("2_vtxvg")
 volume_db = -10.0
 
@@ -242,8 +245,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[node name="PerformanceDisplay" parent="." instance=ExtResource("2_piso6")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-529, 101)
@@ -351,19 +352,12 @@ texture = ExtResource("17_irc6l")
 position = Vector2(-582, 94)
 dialog_options = ["Press [A] and [D] to move!"]
 
-[node name="SpeakingNPC2" parent="NPCs" instance=ExtResource("16_87frp")]
-position = Vector2(-278, 95)
-dialog_options = ["Press [S] to crouch and avoid bullets!"]
-
-[node name="SpeakingNPC3" parent="NPCs" instance=ExtResource("16_87frp")]
-position = Vector2(84, 94)
-dialog_options = ["[L. Click] to shoot, [R. Click to stab!"]
-
 [node name="SpeakingNPC4" parent="NPCs" instance=ExtResource("16_87frp")]
 position = Vector2(382, 64)
 dialog_options = ["Let's get the Hessians!"]
 
 [node name="Washington" type="Sprite2D" parent="NPCs"]
+z_index = -1
 position = Vector2(547, 64)
 texture = ExtResource("20_tidks")
 hframes = 5
@@ -374,6 +368,14 @@ libraries = {
 "": SubResource("AnimationLibrary_r0byr")
 }
 
+[node name="SpeakingNPC_2" parent="NPCs" instance=ExtResource("21_qvta0")]
+position = Vector2(-284, 97)
+dialog_options = ["Press [S] to crouch and avoid bullets!"]
+
+[node name="SpeakingNPC_4" parent="NPCs" instance=ExtResource("22_r3hxv")]
+position = Vector2(42, 94)
+dialog_options = ["[L. Click] to shoot, [R. Click] to stab!"]
+
 [node name="SceneSwitch" type="Area2D" parent="."]
 position = Vector2(733, 65)
 collision_layer = 0
@@ -383,6 +385,14 @@ collision_mask = 2
 position = Vector2(11.5, 0)
 shape = SubResource("RectangleShape2D_jmmo8")
 
-[connection signal="body_entered" from="SceneSwitch" to="." method="_on_scene_switch_body_entered"]
+[node name="Snow" type="CPUParticles2D" parent="."]
+position = Vector2(-198, -107)
+amount = 1000
+speed_scale = 0.25
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1400, 200)
+spread = 55.45
+gravity = Vector2(-10, 980)
 
-[editable path="NPCs/SpeakingNPC2"]
+[connection signal="body_entered" from="SceneSwitch" to="." method="_on_scene_switch_body_entered"]

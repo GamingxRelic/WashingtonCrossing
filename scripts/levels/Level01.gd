@@ -4,16 +4,14 @@ var cutscene_player : AnimationPlayer
 var music : AudioStreamPlayer2D
 
 # TODO:
-# Add enemy
-# Add action level with enemies
-# Add tutorial parts on the first level
-# Add scene switcher
+# Fix error when crouching while reloading.
 
 func _ready() -> void:
 	GameManager.level = self
 	cutscene_player = $CutscenePlayer as AnimationPlayer
 	cutscene_player.play("intro_cutscene")
 	music = $Music as AudioStreamPlayer2D
+	GameManager.music = music
 	GameManager.change_music_volume.connect(_on_change_music_volume)
 	music.volume_db = GameManager.music_volume
 	if !GameManager.mute_music:
@@ -37,6 +35,10 @@ func _process(_delta):
 				GameManager.mute_music = false
 				music.play()
 
+	if Input.is_action_just_pressed("pause"):
+		var pause_menu = preload("res://scenes/menus/pause_menu.tscn").instantiate()
+		GameManager.level.call_deferred("add_child", pause_menu)
+
 func request_change_scene():
 	GameManager.requested_scene = "res://scenes/levels/Level02.tscn"
 	get_tree().call_deferred("change_scene_to_packed", load("res://scenes/menus/loading_screen.tscn"))
@@ -47,17 +49,15 @@ func _on_scene_switch_body_entered(body):
 		#GameManager.emit_signal("switch_scene", "fight")
 
 func _on_change_music_volume():
-	print(music.volume_db)
+	#print(music.volume_db)
 	music.volume_db = GameManager.music_volume
 
 	if GameManager.mute_music:
 		music.stop()
 	elif !GameManager.mute_music and !music.playing:
 		music.play()
-	print(music.volume_db)
+	#print(music.volume_db)
 
-# Audio changes should be -10db, -20, -30, and -200/mute (GameManager.muteMusic).
-func _on_music_finished():
-	pass
-	#if !GameManager.mute_music:
-		#music.play()
+# Audio changes should be -10db, -20, -30 and -200/mute (GameManager.muteMusic).
+
+

@@ -15,6 +15,22 @@ offset_right = -23.0
 offset_bottom = 33.0
 grow_horizontal = 0
 
-[node name="FPS" type="Label" parent="VBoxContainer"]
+[node name="Health" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "00 FPS"
+text = "Health: 0/3
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -950.0
+offset_top = 17.0
+offset_right = -390.0
+offset_bottom = 33.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="EnemiesRem" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Enemies Remaining: 15"

@@ -4,6 +4,7 @@ var level
 var player
 #var scene_switcher
 var requested_scene : String
+var music
 
 var health := 3:
 	set(value):
@@ -22,6 +23,14 @@ var music_volume : float = -10.0:
 
 var mute_music := false
 
+var enemy_count := 0:
+	set(value):
+		enemy_count = value
+		enemy_count_changed.emit()
+	get:
+		return enemy_count
+
 signal switch_scene
 signal change_music_volume
 signal player_hurt
+signal enemy_count_changed

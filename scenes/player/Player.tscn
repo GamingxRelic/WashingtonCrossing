@@ -1389,7 +1389,7 @@ animation = &"stand_up"
 animation = &"walking_reload"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kkktl"]
-graph_offset = Vector2(8.22565, 74.0188)
+graph_offset = Vector2(380.731, -6.10352e-05)
 nodes/Blend2/node = SubResource("AnimationNodeBlend2_ntkuo")
 nodes/Blend2/position = Vector2(380, 440)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_nqlbi")
@@ -1603,6 +1603,7 @@ pitch_scale = 2.0
 
 [node name="HurtAudio" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("12_nymrg")
+pitch_scale = 0.88
 
 [connection signal="body_entered" from="Item_Pickup_Range" to="." method="_on_item_pickup_range_body_entered"]
 [connection signal="body_exited" from="Item_Pickup_Range" to="." method="_on_item_pickup_range_body_exited"]

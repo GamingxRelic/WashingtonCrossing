@@ -104,7 +104,7 @@ func _physics_process(delta):
 	
 		# Audio
 		audio()
-	#
+		
 	#	# Stair Check
 		stair_check()
 		
@@ -174,7 +174,7 @@ func get_input():
 		shoot()
 	if Input.is_action_just_pressed("right_click") and !reloading and !shooting and !stabbing and !crouching: #and !is_jumping:
 		stab()
-	if Input.is_action_just_pressed("crouch")and !attacking and !reloading and !stabbing and !crouching:
+	if Input.is_action_pressed("crouch")and !attacking and !crouching:
 		crouch()
 	if Input.is_action_just_released("crouch"):
 		anim_tree.set("parameters/crouching/transition_request", "standup")
@@ -321,3 +321,7 @@ func _on_attack_box_body_entered(body):
 func damage():
 	GameManager.health -= 1
 	hurt_audio.play()
+	var tween = get_tree().create_tween()
+	sprite.modulate = Color(1,0,0,1)
+	tween.tween_property(sprite, "modulate",Color(1,1,1,1), 0.1)
+	

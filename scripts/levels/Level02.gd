@@ -8,6 +8,7 @@ func _ready() -> void:
 	cutscene_player = $CutscenePlayer as AnimationPlayer
 	cutscene_player.play("intro_cutscene")
 	music = $Music as AudioStreamPlayer2D
+	GameManager.music = music
 	GameManager.change_music_volume.connect(_on_change_music_volume)
 	music.volume_db = GameManager.music_volume
 	if !GameManager.mute_music:
@@ -18,7 +19,14 @@ func _ready() -> void:
 
 func _on_player_hurt():
 	if GameManager.health <= 0:
-		cutscene_player.play("next_scene")
+		GameManager.enemy_count = 0
+		GameManager.player.enable_player = false
+		var timer = get_tree().create_timer(0.5)
+		timer.timeout.connect(player_death)
+		
+
+func player_death():
+	cutscene_player.play("next_scene")
 
 func _process(_delta):
 	if Input.is_action_just_pressed("volume"):
@@ -34,6 +42,10 @@ func _process(_delta):
 				GameManager.music_volume = -10.0
 				GameManager.mute_music = false
 				music.play()
+
+	if Input.is_action_just_pressed("pause"):
+		var pause_menu = preload("res://scenes/menus/pause_menu.tscn").instantiate()
+		GameManager.level.call_deferred("add_child", pause_menu)
 
 func request_change_scene():
 	if GameManager.health > 0:

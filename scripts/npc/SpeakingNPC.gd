@@ -4,9 +4,12 @@ extends Area2D
 
 var in_range := false
 var dialog_label : Label 
+var anim
 
 func _ready() -> void:
 	dialog_label = $Dialog
+	anim = $AnimationPlayer
+	anim.play("idle")
 	new_dialog()
 
 func _process(_delta) -> void:

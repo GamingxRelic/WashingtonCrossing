@@ -1,0 +1,179 @@
+[gd_scene load_steps=9 format=3 uid="uid://drc4xof6a66o0"]
+
+[ext_resource type="Texture2D" uid="uid://b6dloti24isoo" path="res://assets/menu/pause/rope.png" id="1_1slew"]
+[ext_resource type="Script" path="res://scripts/main/pause_menu.gd" id="1_hnj7n"]
+[ext_resource type="Texture2D" uid="uid://2qlc2uxc2kve" path="res://assets/menu/pause/button_default.png" id="2_dloc7"]
+[ext_resource type="Texture2D" uid="uid://bcn7f6gr0dx23" path="res://assets/menu/pause/pause_label.png" id="2_x61is"]
+[ext_resource type="LabelSettings" uid="uid://b1m6o33878g6o" path="res://assets/labels/pause_label.tres" id="3_mminp"]
+[ext_resource type="Texture2D" uid="uid://dtjtnyxkwntdv" path="res://assets/menu/pause/button_hover.png" id="4_omodg"]
+[ext_resource type="Texture2D" uid="uid://b77lk0lv4qcli" path="res://assets/menu/pause/speaker_lvl_3.png" id="5_n2ofq"]
+
+[sub_resource type="Theme" id="Theme_kss4f"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_hnj7n")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rope" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -55.5
+offset_right = 47.0
+offset_bottom = -41.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1slew")
+
+[node name="Rope2" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -5.5
+offset_right = 47.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1slew")
+
+[node name="Rope3" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 44.5
+offset_right = 47.0
+offset_bottom = 58.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1slew")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -98.0
+offset_right = 55.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_kss4f")
+
+[node name="Paused" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_x61is")
+
+[node name="PauseLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer/Paused"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -8.0
+offset_right = 56.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Paused"
+label_settings = ExtResource("3_mminp")
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="TextureButton" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_dloc7")
+texture_hover = ExtResource("4_omodg")
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer/ResumeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume"
+label_settings = ExtResource("3_mminp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="TextureButton" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_dloc7")
+texture_hover = ExtResource("4_omodg")
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer/ExitButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = ExtResource("3_mminp")
+
+[node name="Volume" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_dloc7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/Volume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -13.0
+offset_right = 24.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeButton" type="TextureButton" parent="Panel/HBoxContainer/VBoxContainer/Volume/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_n2ofq")
+
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Volume/HBoxContainer/VolumeButton" to="." method="_on_volume_button_pressed"]
